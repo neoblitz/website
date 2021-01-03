@@ -1,3 +1,3 @@
 # Welcome to my website
 
-Stay tuned for updates!
+Stay tuned for more updates!
