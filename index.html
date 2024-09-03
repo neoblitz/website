@@ -1,3 +1,5 @@
+
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +16,8 @@
             color: #333;
         }
         .container {
-            width: 80%;
+            width: 90%;
+            max-width: 1200px;
             margin: auto;
             overflow: hidden;
             padding: 20px;
@@ -22,20 +25,20 @@
         header {
             background: linear-gradient(135deg, #2c3e50, #3498db);
             color: #ecf0f1;
-            padding: 1rem 0; /* Reduced padding */
+            padding: 0.5rem 0;
             text-align: center;
         }
         header h1 {
             margin: 0;
-            font-size: 1.8em; /* Reduced font size */
+            font-size: 1.4em;
         }
         header p {
-            margin: 5px 0 0; /* Adjusted margin */
-            font-size: 0.9em; /* Reduced font size */
+            margin: 3px 0 0;
+            font-size: 0.7em;
         }
         nav {
             background: #34495e;
-            padding: 0.5rem;
+            padding: 0.2rem;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
         nav ul {
@@ -46,12 +49,13 @@
             justify-content: center;
         }
         nav ul li {
-            margin: 0 15px;
+            margin: 0 8px;
         }
         nav ul li a {
             color: #ecf0f1;
             text-decoration: none;
             font-weight: bold;
+            font-size: 0.8em;
             transition: color 0.3s ease;
         }
         nav ul li a:hover {
@@ -64,54 +68,24 @@
             border-radius: 8px;
             box-shadow: 0 0 20px rgba(0,0,0,0.1);
         }
-        .project, .publication {
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #eee;
-        }
         h2 {
             color: #2c3e50;
             border-bottom: 2px solid #3498db;
             padding-bottom: 10px;
         }
-        /* New resume styles */
-        #resume {
-            background: linear-gradient(45deg, #f1f8ff, #ffffff);
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        #resume h2 {
-            color: #3498db;
+        footer {
+            background: #2c3e50;
+            color: #ecf0f1;
             text-align: center;
-            font-size: 2em;
-            margin-bottom: 30px;
+            padding: 1rem 0;
+            margin-top: 20px;
         }
-        #resume h3 {
-            color: #2c3e50;
-            border-left: 4px solid #3498db;
-            padding-left: 10px;
-        }
-        #resume ul {
-            list-style-type: none;
-            padding-left: 20px;
-        }
-        #resume ul li:before {
-            content: "▹";
-            color: #3498db;
-            font-weight: bold;
-            display: inline-block;
-            width: 1em;
-            margin-left: -1em;
-        }
-        #resume a {
+        footer a {
             color: #3498db;
             text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s ease;
         }
-        #resume a:hover {
-            color: #2980b9;
+        footer a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -126,71 +100,23 @@
     <nav>
         <div class="container">
             <ul>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#publications">Publications</a></li>
-                <li><a href="#hobbies">Hobbies</a></li>
-                <li><a href="#resume">Resume</a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Me</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="publications.html">Publications</a></li>
+                <li><a href="talks.html">Talks</a></li>
+                <li><a href="code.html">Code</a></li>
+                <li><a href="writings.html">Writings</a></li>
+                <li><a href="hobbies.html">Hobbies</a></li>
+                <li><a href="resume.html">Resume</a></li>
             </ul>
         </div>
     </nav>
 
     <div class="container">
         <div class="content">
-            <section id="projects">
-                <h2>Projects</h2>
-                <div class="project">
-                    <h3>Project 1: AI-driven Climate Change Analysis</h3>
-                    <p>Developed a machine learning model to predict climate change impacts using satellite imagery and historical weather data.</p>
-                </div>
-                <div class="project">
-                    <h3>Project 2: Quantum Computing Simulation</h3>
-                    <p>Created a quantum circuit simulator to explore quantum algorithms and their potential applications in cryptography.</p>
-                </div>
-            </section>
-
-            <section id="publications">
-                <h2>Publications</h2>
-                <div class="publication">
-                    <h3>"Machine Learning Approaches to Climate Prediction"</h3>
-                    <p>Published in Journal of Climate Informatics, 2023</p>
-                </div>
-                <div class="publication">
-                    <h3>"Quantum Algorithms for Optimization Problems"</h3>
-                    <p>Presented at International Quantum Computing Conference, 2022</p>
-                </div>
-            </section>
-
-            <section id="hobbies">
-                <h2>Hobbies</h2>
-                <ul>
-                    <li>Astrophotography</li>
-                    <li>Hiking and Nature Photography</li>
-                    <li>Playing Chess</li>
-                    <li>Amateur Radio Operation</li>
-                </ul>
-            </section>
-
-            <section id="resume">
-                <h2>Resume</h2>
-                <p>Download my full resume <a href="path_to_your_resume.pdf" target="_blank">here</a>.</p>
-                <h3>Education</h3>
-                <ul>
-                    <li>Ph.D. in Computer Science, University of Technology, 2021</li>
-                    <li>M.S. in Data Science, Data University, 2018</li>
-                </ul>
-                <h3>Skills</h3>
-                <ul>
-                    <li>Machine Learning and AI</li>
-                    <li>Data Analysis and Visualization</li>
-                    <li>Quantum Computing</li>
-                    <li>Python, R, Java</li>
-                </ul>
-                <h3>Professional Experience</h3>
-                <ul>
-                    <li>Senior Data Scientist, Tech Innovations Inc., 2021-Present</li>
-                    <li>Research Assistant, University of Technology, 2018-2021</li>
-                </ul>
-            </section>
+            <h2>Welcome to My Portfolio</h2>
+            <p>This is the main page of my portfolio. Please use the navigation menu to explore different sections of my work and interests.</p>
         </div>
     </div>
 
@@ -201,7 +127,6 @@
     </footer>
 </body>
 </html>
-
 
 
 
