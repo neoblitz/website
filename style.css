@@ -80,14 +80,6 @@ main {
   text-decoration: none;
 }
 
-.avatar {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 1px solid var(--rule);
-}
-
 .site-name {
   font-family: "Fraunces", Charter, Georgia, serif;
   font-size: 1.125rem;
@@ -186,7 +178,7 @@ h1 em {
   margin-bottom: 1rem;
 }
 
-.hero-text .lede {
+.hero-text .lede:last-of-type {
   margin-bottom: 0;
 }
 
