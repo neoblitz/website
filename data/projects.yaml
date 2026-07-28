@@ -38,6 +38,7 @@ sections:
 
       - title: Semantic Analysis Framework
         url: https://github.com/neoblitz/SAF
+        featured: false
         meta: Python · USENIX NSDI 2011
         description: >-
           A framework for model-driven semantic analysis of network data —
@@ -46,11 +47,13 @@ sections:
       - title: kissview
         url: https://github.com/neoblitz/kissview
         meta: Python
+        featured: false
         description: A keep-it-simple viewer, originally hosted on Google Code.
 
       - title: srtgplot
         url: https://github.com/neoblitz/srtgplot
         meta: Python
+        featured: false
         description: >-
           A simple real-time plotting tool for streaming data, originally
           hosted on Google Code.
@@ -61,7 +64,7 @@ sections:
         url: https://techcrunch.com/2020/02/09/the-war-against-space-hackers-how-the-jpl-works-to-secure-its-missions-from-nation-state-adversaries/
         meta: JPL · Deployed on 10+ missions
         home_meta: JPL · 10+ missions
-        featured: true
+        featured: false
         summary: >-
           Real-time cyber situational awareness for mission operators. Featured
           in TechCrunch.
@@ -75,7 +78,7 @@ sections:
         url: https://patents.google.com/patent/US11425157B2/en
         meta: JPL · U.S. Patent 11,425,157
         home_meta: JPL · U.S. Patent
-        featured: true
+        featured: false
         summary: >-
           AI-based reasoning for automated cyber risk assessment of space
           missions.
