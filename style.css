@@ -9,11 +9,13 @@
   --accent-soft: #b0522c22;
   --rule: #e7e1d5;
   --shadow: 0 10px 30px -18px rgba(60, 42, 24, 0.35);
-  color-scheme: light dark;
+  color-scheme: light;
 }
 
+/* Dark palette — used when the system prefers dark (and no manual override),
+   or when the theme toggle forces dark. */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --bg: #16140f;
     --bg-raised: #1e1b15;
     --text: #ece7dc;
@@ -22,7 +24,20 @@
     --accent-soft: #e0946822;
     --rule: #2e2a21;
     --shadow: 0 10px 30px -18px rgba(0, 0, 0, 0.8);
+    color-scheme: dark;
   }
+}
+
+:root[data-theme="dark"] {
+  --bg: #16140f;
+  --bg-raised: #1e1b15;
+  --text: #ece7dc;
+  --muted: #a09a8c;
+  --accent: #e09468;
+  --accent-soft: #e0946822;
+  --rule: #2e2a21;
+  --shadow: 0 10px 30px -18px rgba(0, 0, 0, 0.8);
+  color-scheme: dark;
 }
 
 * {
@@ -93,8 +108,46 @@ main {
 
 .site-nav {
   display: flex;
+  align-items: center;
   flex-wrap: wrap;
   gap: 0.5rem 1.5rem;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 1px solid var(--rule);
+  border-radius: 50%;
+  background: var(--bg-raised);
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.theme-toggle:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.theme-toggle svg {
+  display: block;
+}
+
+.theme-toggle .icon-sun {
+  display: none;
+}
+
+.theme-toggle.is-dark .icon-moon {
+  display: none;
+}
+
+.theme-toggle.is-dark .icon-sun {
+  display: block;
 }
 
 .site-nav a {
@@ -233,7 +286,7 @@ p {
 }
 
 .lede {
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   line-height: 1.7;
 }
 
