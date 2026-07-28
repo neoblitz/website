@@ -1,25 +1,20 @@
 #!/usr/bin/env python3
-"""Build writing/ HTML pages and the search index from Markdown.
+"""Static build for arunviswanathan.com.
 
-Usage:  python3 build.py    (needs the `markdown` package: pip install markdown)
+Single sources of truth:
+  - Posts:    writing/content/*.md   (Markdown, one per post)
+  - Projects: data/projects.yaml
 
-For each `writing/content/*.md` file it:
-  - reads optional front matter (title, date),
-  - converts the Markdown to HTML,
-  - wraps it in the site's article template -> writing/<slug>.html,
-  - rebuilds the Posts list in writing.html (between the POSTS markers),
-  - writes search-index.json used by the Writing page's search box.
+Running `python3 build.py` regenerates everything derived from them:
+  - writing/<slug>.html            (article pages)
+  - the post list on writing.html  (between the POSTS markers)
+  - search-index.json              (post search)
+  - the project sections on projects.html   (PROJECTS markers)
+  - the home page's "Selected projects" (FEATURED markers) and
+    "Recent writing" (RECENT markers)
 
-Front matter is optional. Example:
-
-    ---
-    title: Why I Started Writing
-    date: 2026-07-28
-    ---
-
-If title/date are omitted, the title comes from the first `# ` heading and the
-date from the file's modification time. Files whose names start with `_` are
-skipped.
+The pages are still served as plain static files; this build runs locally.
+Needs:  pip install markdown pyyaml
 """
 
 import os
@@ -28,13 +23,18 @@ import json
 import glob
 import datetime
 import markdown
+import yaml
 
 CONTENT_DIR = "writing/content"
 OUT_DIR = "writing"
+DATA_DIR = "data"
 WRITING_PAGE = "writing.html"
+PROJECTS_PAGE = "projects.html"
+HOME_PAGE = "index.html"
 INDEX_FILE = "search-index.json"
+RECENT_ON_HOME = 3
 
-TEMPLATE = """<!DOCTYPE html>
+ARTICLE_TEMPLATE = """<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -96,6 +96,29 @@ TEMPLATE = """<!DOCTYPE html>
 """
 
 
+# ---------------------------------------------------------------- helpers
+
+def html_escape(s):
+    return (str(s).replace("&", "&amp;").replace("<", "&lt;")
+             .replace(">", "&gt;").replace('"', "&quot;"))
+
+
+def format_date(iso):
+    d = datetime.date.fromisoformat(iso)
+    return "%s %d, %d" % (d.strftime("%B"), d.day, d.year)
+
+
+def replace_region(text, start, end, inner):
+    """Replace whatever sits between the two marker comments with `inner`,
+    keeping the markers. Assumes the END marker is indented 12 spaces."""
+    pattern = re.escape(start) + r".*?" + re.escape(end)
+    repl = start + "\n" + inner + "\n            " + end
+    new, n = re.subn(pattern, lambda m: repl, text, flags=re.DOTALL)
+    if n == 0:
+        raise SystemExit("Marker %s not found — did the page lose it?" % start)
+    return new
+
+
 def parse_front_matter(text):
     meta = {}
     m = re.match(r"^---\s*\n(.*?)\n---\s*\n", text, re.DOTALL)
@@ -108,17 +131,9 @@ def parse_front_matter(text):
     return meta, text
 
 
-def html_escape(s):
-    return (s.replace("&", "&amp;").replace("<", "&lt;")
-             .replace(">", "&gt;").replace('"', "&quot;"))
+# ---------------------------------------------------------------- posts
 
-
-def format_date(iso):
-    d = datetime.date.fromisoformat(iso)
-    return "%s %d, %d" % (d.strftime("%B"), d.day, d.year)
-
-
-def build():
+def build_posts():
     posts = []
     for md_path in sorted(glob.glob(os.path.join(CONTENT_DIR, "*.md"))):
         name = os.path.basename(md_path)
@@ -144,47 +159,103 @@ def build():
         plain = re.sub(r"\s+", " ", plain).strip()
         desc = (plain[:157] + "…") if len(plain) > 158 else plain
 
-        page = (TEMPLATE
+        page = (ARTICLE_TEMPLATE
                 .replace("%%TITLE%%", html_escape(title))
                 .replace("%%DESC%%", html_escape(desc))
                 .replace("%%DATE_ISO%%", iso)
                 .replace("%%DATE_DISPLAY%%", format_date(iso))
                 .replace("%%BODY%%", body_html))
-        out_path = os.path.join(OUT_DIR, slug + ".html")
-        open(out_path, "w", encoding="utf-8").write(page)
+        open(os.path.join(OUT_DIR, slug + ".html"), "w", encoding="utf-8").write(page)
 
         posts.append({"title": title, "url": "writing/%s.html" % slug,
                       "date": iso, "text": plain})
 
     posts.sort(key=lambda p: p["date"], reverse=True)
-
-    # search index (title + full text; served from the site root)
-    lite = [{"title": p["title"], "url": p["url"], "date": p["date"],
-             "text": p["text"]} for p in posts]
-    json.dump(lite, open(INDEX_FILE, "w", encoding="utf-8"),
+    json.dump(posts, open(INDEX_FILE, "w", encoding="utf-8"),
               ensure_ascii=False, indent=2)
+    return posts
 
-    # rebuild the Posts list inside writing.html between the markers
-    items = "\n".join(
-        '                    <li>\n'
-        '                        <time datetime="%s">%s</time>\n'
-        '                        <a href="%s">%s</a>\n'
-        '                    </li>' % (p["date"], p["date"], p["url"],
-                                       html_escape(p["title"]))
+
+def post_list_items(posts, indent):
+    pad = " " * indent
+    return "\n".join(
+        '%s<li>\n'
+        '%s    <time datetime="%s">%s</time>\n'
+        '%s    <a href="%s">%s</a>\n'
+        '%s</li>' % (pad, pad, p["date"], p["date"], pad, p["url"],
+                     html_escape(p["title"]), pad)
         for p in posts)
-    block = ('<!-- POSTS:START -->\n'
-             '                <ul class="post-list" id="posts">\n'
-             + items + '\n'
-             '                </ul>\n'
-             '                <!-- POSTS:END -->')
-    page = open(WRITING_PAGE, encoding="utf-8").read()
-    page = re.sub(r"<!-- POSTS:START -->.*?<!-- POSTS:END -->",
-                  lambda m: block, page, flags=re.DOTALL)
-    open(WRITING_PAGE, "w", encoding="utf-8").write(page)
 
-    print("Built %d post(s): %s" % (len(posts),
-          ", ".join(p["url"] for p in posts)))
+
+def build_writing_page(posts):
+    inner = ('                <ul class="post-list" id="posts">\n'
+             + post_list_items(posts, 20) + '\n'
+             '                </ul>')
+    text = open(WRITING_PAGE, encoding="utf-8").read()
+    text = replace_region(text, "<!-- POSTS:START -->", "<!-- POSTS:END -->", inner)
+    open(WRITING_PAGE, "w", encoding="utf-8").write(text)
+
+
+# ---------------------------------------------------------------- projects
+
+def card_html(p, meta_key="meta", desc_key="description"):
+    meta = p.get(meta_key) or p.get("meta") or ""
+    desc = p.get(desc_key) or p.get("description") or ""
+    return ('                <a class="card" href="%s">\n'
+            '                    <h2>%s</h2>\n'
+            '                    <div class="meta">%s</div>\n'
+            '                    <p>%s</p>\n'
+            '                </a>' % (html_escape(p["url"]), html_escape(p["title"]),
+                                      html_escape(meta), html_escape(" ".join(desc.split()))))
+
+
+def load_projects():
+    return yaml.safe_load(open(os.path.join(DATA_DIR, "projects.yaml"), encoding="utf-8"))
+
+
+def build_projects_page(data):
+    blocks = []
+    for section in data["sections"]:
+        cards = "\n\n".join(card_html(p) for p in section["projects"])
+        blocks.append(
+            '            <div class="section-head">\n'
+            '                <h2>%s</h2>\n'
+            '            </div>\n'
+            '            <div class="cards duo">\n'
+            '%s\n'
+            '            </div>' % (html_escape(section["name"]), cards))
+    inner = "\n\n".join(blocks)
+    text = open(PROJECTS_PAGE, encoding="utf-8").read()
+    text = replace_region(text, "<!-- PROJECTS:START -->", "<!-- PROJECTS:END -->", inner)
+    open(PROJECTS_PAGE, "w", encoding="utf-8").write(text)
+
+
+def build_home(data, posts):
+    featured = [p for s in data["sections"] for p in s["projects"] if p.get("featured")]
+    cards = "\n".join(card_html(p, "home_meta", "summary") for p in featured)
+    featured_inner = ('            <div class="cards duo">\n'
+                      + cards + '\n'
+                      '            </div>')
+    recent_inner = ('            <ul class="post-list">\n'
+                    + post_list_items(posts[:RECENT_ON_HOME], 16) + '\n'
+                    '            </ul>')
+    text = open(HOME_PAGE, encoding="utf-8").read()
+    text = replace_region(text, "<!-- FEATURED:START -->", "<!-- FEATURED:END -->", featured_inner)
+    text = replace_region(text, "<!-- RECENT:START -->", "<!-- RECENT:END -->", recent_inner)
+    open(HOME_PAGE, "w", encoding="utf-8").write(text)
+
+
+# ---------------------------------------------------------------- main
+
+def main():
+    posts = build_posts()
+    build_writing_page(posts)
+    data = load_projects()
+    build_projects_page(data)
+    build_home(data, posts)
+    nproj = sum(len(s["projects"]) for s in data["sections"])
+    print("Built %d post(s) and %d project(s)." % (len(posts), nproj))
 
 
 if __name__ == "__main__":
-    build()
+    main()

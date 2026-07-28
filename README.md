@@ -1,33 +1,50 @@
 # arunviswanathan.com
 
-My personal website — plain HTML and CSS, hosted on GitHub Pages. Articles are
-written in Markdown and turned into pages by a small local build script; the
-site itself is served as static files (no build on the server).
+My personal website — plain HTML and CSS, hosted on GitHub Pages. Content lives
+in two data sources (Markdown posts and a projects file); a small local build
+script generates the pages from them. The site itself is served as static files
+(no build on the server).
+
+## Editing rule
+
+You only ever edit **content sources**. Everything else with "generated" below
+is rebuilt by `build.py` — don't hand-edit it, your changes will be overwritten.
+
+Content sources:
+- `writing/content/*.md` — one Markdown file per post
+- `data/projects.yaml` — the list of projects
+- prose on `index.html` (the intro / Background / Beyond work), `publications.html`,
+  and `talks.html` is still edited directly
+
+Everything derived from those (the article pages, the post list, the search
+index, the project cards on `projects.html`, and the home page's "Selected
+projects" and "Recent writing") is regenerated between `<!-- … -->` markers.
 
 ## Structure
 
-- `index.html` — home / about me
-- `projects.html` — projects
-- `writing.html` — writing (post list + search, and links to work published elsewhere)
-- `publications.html` — publications
-- `talks.html` — talks and presentations
-- `writing/content/*.md` — **article sources** (Markdown, one per post)
-- `writing/*.html` — **generated** article pages (do not edit by hand)
-- `build.py` — converts the Markdown into pages, rebuilds the post list, and
-  writes the search index
-- `search-index.json` — **generated** index used by the Writing page's search
-- `search.js` — client-side search behavior
-- `theme.js` — light/dark toggle behavior
-- `assets/portrait.png` — the circular hero portrait shown on the home page
-- `style.css` — the single shared stylesheet
-- `404.html` — not-found page
-- `CNAME` — custom domain for GitHub Pages
-- `.nojekyll` — tells GitHub Pages to serve files as-is (no Jekyll build)
+- `index.html` — home / about (intro is hand-written; the two lists are generated)
+- `projects.html` — projects (generated from `data/projects.yaml`)
+- `writing.html` — writing (post list + search; generated post list)
+- `publications.html`, `talks.html` — hand-written lists
+- `writing/content/*.md` — **article sources**
+- `writing/*.html` — **generated** article pages
+- `data/projects.yaml` — **project source of truth**
+- `build.py` — the generator
+- `search-index.json` — **generated** search index · `search.js` — search UI
+- `theme.js` — light/dark toggle · `style.css` — shared stylesheet
+- `assets/portrait.png` — hero portrait
+- `404.html` · `CNAME` · `.nojekyll`
 
-## Writing a new article
+## The build
 
-1. Create `writing/content/<slug>.md` and write your post in Markdown.
-   Optionally add front matter at the top to set the title and date:
+```bash
+pip install markdown pyyaml   # one-time
+python3 build.py              # after editing any content source
+```
+
+## Adding a post
+
+1. Create `writing/content/<slug>.md`. Optionally set title/date via front matter:
 
    ```markdown
    ---
@@ -38,19 +55,15 @@ site itself is served as static files (no build on the server).
    Your first paragraph…
    ```
 
-   Without front matter, the title is taken from the first `# heading` and the
-   date from the file's modified time.
+   Without front matter, the title comes from the first `# heading` and the date
+   from the file's modified time.
+2. Run `python3 build.py`, then commit and push.
 
-2. Run the build (needs Python + the `markdown` package — `pip install markdown`):
+## Adding or editing a project
 
-   ```bash
-   python3 build.py
-   ```
+1. Edit `data/projects.yaml` (add an entry under a section; set `featured: true`
+   to also show it on the home page).
+2. Run `python3 build.py`, then commit and push.
 
-   This regenerates the article page, the post list on `writing.html`, and the
-   search index.
-
-3. Commit and push — GitHub Pages publishes automatically.
-
-Or just hand the Markdown (or even the plain text) to Claude and it will run the
-build and publish for you.
+Or just hand the Markdown / project details to Claude and it will build and
+publish for you.
