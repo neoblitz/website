@@ -34,7 +34,7 @@ sections:
         meta: Monkey C · Garmin
         description: >-
           A Garmin Venu 3 watchface that lets you observe the night sky from
-          any of the nine classical planets.
+          any of the nine classical planets. Search and download it on the Connect IQ app store.
 
       - title: Semantic Analysis Framework
         url: https://github.com/neoblitz/SAF
