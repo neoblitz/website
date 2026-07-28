@@ -32,6 +32,7 @@ sections:
       - title: Celestial Watchface
         url: https://github.com/neoblitz/celestial-watchface
         meta: Monkey C · Garmin
+        featured: true
         description: >-
           A Garmin Venu 3 watchface that lets you observe the night sky from
           any of the nine classical planets. Search and download it on the Connect IQ app store.
