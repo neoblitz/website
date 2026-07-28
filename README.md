@@ -1,37 +1,26 @@
-## Welcome to GitHub Pages
+# arunviswanathan.com
 
-You can use the [editor on GitHub](https://github.com/neoblitz/website/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+My personal website — plain HTML and CSS, no build step, hosted on GitHub Pages.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## Structure
 
-### Markdown
+- `index.html` — home / about me
+- `projects.html` — projects
+- `writing.html` — writing (on-site posts and links to work published elsewhere)
+- `publications.html` — publications
+- `talks.html` — talks and presentations
+- `assets/portrait.png` — the circular hero portrait shown on the home page
+- `assets/monogram.png` — the small "A" mark shown beside the name in every header
+- `style.css` — the single shared stylesheet
+- `404.html` — not-found page
+- `CNAME` — custom domain for GitHub Pages
+- `.nojekyll` — tells GitHub Pages to serve files as-is (no Jekyll build)
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+## Adding a post
 
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/neoblitz/website/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+1. Create `writing/<slug>.html`, reusing the header and footer markup from any
+   existing page (adjust the relative paths — the file lives one level down, so
+   use `../style.css`, `../assets/…`, `../index.html`, etc.).
+2. Wrap the post body in an `<article>` and set the `<title>`, `<h1>`, and `<time>`.
+3. Add a `<ul class="post-list">` entry to `writing.html` linking to it.
+4. Commit and push — GitHub Pages publishes automatically.

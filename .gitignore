@@ -1,0 +1,8 @@
+# macOS
+.DS_Store
+
+# Local editor / tooling config
+.claude/
+
+# Personal CV source — contains private contact details, kept out of the public repo
+cv.latex

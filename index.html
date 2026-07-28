@@ -1,131 +1,115 @@
-
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Research Portfolio</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f3f5;
-            color: #333;
-        }
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: auto;
-            overflow: hidden;
-            padding: 20px;
-        }
-        header {
-            background: linear-gradient(135deg, #2c3e50, #3498db);
-            color: #ecf0f1;
-            padding: 0.5rem 0;
-            text-align: center;
-        }
-        header h1 {
-            margin: 0;
-            font-size: 1.4em;
-        }
-        header p {
-            margin: 3px 0 0;
-            font-size: 0.7em;
-        }
-        nav {
-            background: #34495e;
-            padding: 0.2rem;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        nav ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-        }
-        nav ul li {
-            margin: 0 8px;
-        }
-        nav ul li a {
-            color: #ecf0f1;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 0.8em;
-            transition: color 0.3s ease;
-        }
-        nav ul li a:hover {
-            color: #3498db;
-        }
-        .content {
-            background: #fff;
-            padding: 30px;
-            margin-top: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-        }
-        h2 {
-            color: #2c3e50;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
-        }
-        footer {
-            background: #2c3e50;
-            color: #ecf0f1;
-            text-align: center;
-            padding: 1rem 0;
-            margin-top: 20px;
-        }
-        footer a {
-            color: #3498db;
-            text-decoration: none;
-        }
-        footer a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <title>Arun Viswanathan</title>
+    <meta name="description" content="Arun Viswanathan — cybersecurity researcher and engineer. Principal Security Researcher at Microsoft; previously led cyber defense engineering and research at NASA JPL.">
+    <link rel="icon" type="image/png" href="/assets/monogram.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>John Doe</h1>
-            <p>Researcher | Data Scientist | Tech Enthusiast</p>
-        </div>
-    </header>
+    <div class="page">
+        <header class="site-header">
+            <a class="identity" href="index.html">
+                <img class="avatar" src="assets/monogram.png" alt="Arun Viswanathan">
+                <span class="site-name">Arun Viswanathan</span>
+            </a>
+            <nav class="site-nav">
+                <a href="index.html" aria-current="page">About</a>
+                <a href="projects.html">Projects</a>
+                <a href="writing.html">Writing</a>
+                <a href="publications.html">Publications</a>
+                <a href="talks.html">Talks</a>
+            </nav>
+        </header>
 
-    <nav>
-        <div class="container">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About Me</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="publications.html">Publications</a></li>
-                <li><a href="talks.html">Talks</a></li>
-                <li><a href="code.html">Code</a></li>
-                <li><a href="hobbies.html">Hobbies</a></li>
-                <li><a href="resume.html">Resume</a></li>
+        <main>
+            <section class="hero">
+                <img class="hero-portrait" src="assets/portrait.png" alt="Arun Viswanathan">
+                <div class="hero-text">
+                    <h1>Hello, I'm <em>Arun</em>.</h1>
+                    <p class="lede">
+                        I'm a cybersecurity researcher and engineer with over
+                        twenty years of experience protecting critical systems —
+                        from spacecraft and smart grids to the collaboration
+                        tools millions of people use every day. Currently a
+                        Principal Security Researcher at Microsoft working at 
+                        interesection of cybersecurity and AI; previously
+                        led cyber defense engineering and research at NASA's Jet
+                        Propulsion Laboratory.
+                    </p>
+                </div>
+            </section>
+
+            <ul class="pills">
+                <li><a href="https://github.com/neoblitz">GitHub</a></li>
+                <li><a href="https://www.linkedin.com/in/arunaviswanathan/">LinkedIn</a></li>
+                <li><a href="https://bit.ly/scholar_av">Google Scholar</a></li>
             </ul>
-        </div>
-    </nav>
 
-    <div class="container">
-        <div class="content">
-            <h2>Welcome to My Portfolio</h2>
-            <p>This is the main page of my portfolio. Please use the navigation menu to explore different sections of my work and interests.</p>
-        </div>
+            <div class="section-head">
+                <h2>Selected projects</h2>
+                <a class="more" href="projects.html">View all →</a>
+            </div>
+            <div class="cards duo">
+                <a class="card" href="https://techcrunch.com/2020/02/09/the-war-against-space-hackers-how-the-jpl-works-to-secure-its-missions-from-nation-state-adversaries/">
+                    <h2>CyberSAM</h2>
+                    <div class="meta">JPL · 10+ missions</div>
+                    <p>Real-time cyber situational awareness for mission
+                    operators. Featured in TechCrunch.</p>
+                </a>
+                <a class="card" href="https://patents.google.com/patent/US11425157B2/en">
+                    <h2>CAVE</h2>
+                    <div class="meta">JPL · U.S. Patent</div>
+                    <p>AI-based reasoning for automated cyber risk assessment of
+                    space missions.</p>
+                </a>
+            </div>
+
+            <div class="section-head">
+                <h2>Recent writing</h2>
+                <a class="more" href="writing.html">View all →</a>
+            </div>
+            <ul class="post-list">
+                <li>
+                    <time datetime="2023-12-01">2023-12</time>
+                    <a href="https://aerospaceamerica.aiaa.org/year-in-review/space-and-aviation-sectors-invest-in-community-awareness-training-and-education-to-ward-off-increasing-cyberattacks/">Cyber awareness in space &amp; aviation — Aerospace America</a>
+                </li>
+                <li>
+                    <time datetime="2022-12-01">2022-12</time>
+                    <a href="https://aerospaceamerica.aiaa.org/year-in-review/space-and-aviation-sectors-take-steps-to-guard-against-increased-cyberattacks/">Guarding against increased cyberattacks — Aerospace America</a>
+                </li>
+            </ul>
+
+            <hr>
+
+            <h2>Background</h2>
+            <p class="muted">
+                Ph.D. in Computer Science from USC (2015). A decade at JPL
+                building and leading mission cyber defense — CyberSAM, the
+                patented CAVE risk-assessment tool, CTFs, and the Cyber Defense
+                Engineering &amp; Research Group. Now at Microsoft protecting
+                Teams users from social-engineering threats.
+            </p>
+
+            <h2>Beyond work</h2>
+            <p class="muted">
+                Fitness, hiking, reading, chess, and piano. Robotics-team mentor
+                and youth soccer coach.
+            </p>
+        </main>
+
+        <footer class="site-footer">
+            <span>© 2026 Arun Viswanathan</span>
+            <span>
+                <a href="https://github.com/neoblitz">GitHub</a> ·
+                <a href="https://www.linkedin.com/in/arunaviswanathan/">LinkedIn</a>
+            </span>
+        </footer>
     </div>
-
-    <footer>
-        <div class="container">
-            <p>Contact: john.doe@email.com | <a href="https://github.com/johndoe" target="_blank">GitHub</a> | <a href="https://linkedin.com/in/johndoe" target="_blank">LinkedIn</a></p>
-        </div>
-    </footer>
 </body>
 </html>
-
-
-

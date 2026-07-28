@@ -1,59 +1,121 @@
-<!-- projects.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects - My Research Portfolio</title>
+    <title>Projects — Arun Viswanathan</title>
+    <meta name="description" content="Projects by Arun Viswanathan — mission cyber defense tools, research software, and open source.">
+    <link rel="icon" type="image/png" href="/assets/monogram.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>John Doe</h1>
-            <p>Researcher | Data Scientist | Tech Enthusiast</p>
-        </div>
-    </header>
+    <div class="page">
+        <header class="site-header">
+            <a class="identity" href="index.html">
+                <img class="avatar" src="assets/monogram.png" alt="Arun Viswanathan">
+                <span class="site-name">Arun Viswanathan</span>
+            </a>
+            <nav class="site-nav">
+                <a href="index.html">About</a>
+                <a href="projects.html" aria-current="page">Projects</a>
+                <a href="writing.html">Writing</a>
+                <a href="publications.html">Publications</a>
+                <a href="talks.html">Talks</a>
+            </nav>
+        </header>
 
-    <nav>
-        <div class="container">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About Me</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="publications.html">Publications</a></li>
-                <li><a href="talks.html">Talks</a></li>
-                <li><a href="code.html">Code</a></li>
-                <li><a href="writings.html">Writings</a></li>
-                <li><a href="hobbies.html">Hobbies</a></li>
-                <li><a href="resume.html">Resume</a></li>
-            </ul>
-        </div>
-    </nav>
+        <main>
+            <h1>Projects</h1>
+            <p class="lede muted">
+                Selected work from two decades of defending critical systems,
+                plus personal open source.
+            </p>
 
-    <div class="container">
-        <div class="content">
-            <h2>Projects</h2>
-            <div class="project">
-                <h3>[Project Title 1]</h3>
-                <p>[Brief description of the project]</p>
-                <a href="#">Learn More</a>
+            <div class="section-head">
+                <h2>Open source</h2>
             </div>
-            <div class="project">
-                <h3>[Project Title 2]</h3>
-                <p>[Brief description of the project]</p>
-                <a href="#">Learn More</a>
+            <div class="cards duo">
+                <a class="card" href="https://github.com/neoblitz/celestial-watchface">
+                    <h2>Celestial Watchface</h2>
+                    <div class="meta">Monkey C · Garmin</div>
+                    <p>A Garmin Venu 3 watchface that lets you observe the night
+                    sky from any of the nine classical planets.</p>
+                </a>
+
+                <a class="card" href="https://github.com/neoblitz/SAF">
+                    <h2>Semantic Analysis Framework</h2>
+                    <div class="meta">Python · USENIX NSDI 2011</div>
+                    <p>A framework for model-driven semantic analysis of network
+                    data — finding hidden activity in massive traffic captures.</p>
+                </a>
+
+                <a class="card" href="https://github.com/neoblitz/kissview">
+                    <h2>kissview</h2>
+                    <div class="meta">Python</div>
+                    <p>A keep-it-simple viewer, originally hosted on Google Code.</p>
+                </a>
+
+                <a class="card" href="https://github.com/neoblitz/srtgplot">
+                    <h2>srtgplot</h2>
+                    <div class="meta">Python</div>
+                    <p>A simple real-time plotting tool for streaming data,
+                    originally hosted on Google Code.</p>
+                </a>
             </div>
-            <!-- Add more project entries as needed -->
-        </div>
+
+            <div class="section-head">
+                <h2>Mission cyber defense</h2>
+            </div>
+            <div class="cards">
+                <a class="card" href="https://techcrunch.com/2020/02/09/the-war-against-space-hackers-how-the-jpl-works-to-secure-its-missions-from-nation-state-adversaries/">
+                    <h2>CyberSAM</h2>
+                    <div class="meta">JPL · Deployed on 10+ missions</div>
+                    <p>A data collection, analysis, and visualization suite that
+                    gives mission operators real-time cyber situational
+                    awareness for detecting and diagnosing attacks and
+                    anomalies. Featured in TechCrunch's coverage of JPL's cyber
+                    defense work.</p>
+                </a>
+
+                <a class="card" href="https://patents.google.com/patent/US11425157B2/en">
+                    <h2>CAVE</h2>
+                    <div class="meta">JPL · U.S. Patent 11,425,157</div>
+                    <p>An AI-based reasoning tool for automated cyber risk
+                    assessment that translates high-level threat descriptions
+                    into system-specific, actionable defense tactics — enabling
+                    dramatically faster identification and remediation of cyber
+                    risks.</p>
+                </a>
+
+                <a class="card" href="https://www.sci-zone.com/cubesat-cybersecurity-challenge">
+                    <h2>Cyber training, CTFs &amp; exercises</h2>
+                    <div class="meta">JPL · AIAA · Community</div>
+                    <p>Designed three capture-the-flag competitions for mission
+                    engineers and students, a CubeSat hacking workshop at DEF
+                    CON, and an international space-cyber tabletop exercise at
+                    AIAA ASCEND.</p>
+                </a>
+
+                <a class="card" href="https://digitalcommons.usu.edu/smallsat/2024/all2024/35/">
+                    <h2>F Prime adversarial assessment</h2>
+                    <div class="meta">JPL · Research</div>
+                    <p>Led the adversarial security assessment of NASA's open-source
+                    F Prime flight software framework, with findings and
+                    recommendations published at SmallSat 2024.</p>
+                </a>
+            </div>
+        </main>
+
+        <footer class="site-footer">
+            <span>© 2026 Arun Viswanathan</span>
+            <span>
+                <a href="https://github.com/neoblitz">GitHub</a> ·
+                <a href="https://www.linkedin.com/in/arunaviswanathan/">LinkedIn</a>
+            </span>
+        </footer>
     </div>
-
-    <footer>
-        <div class="container">
-            <p>Contact: john.doe@email.com | <a href="https://github.com/johndoe" target="_blank">GitHub</a> | <a href="https://linkedin.com/in/johndoe" target="_blank">LinkedIn</a></p>
-        </div>
-    </footer>
 </body>
 </html>
-
-
