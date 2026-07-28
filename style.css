@@ -50,12 +50,11 @@ body {
 }
 
 .page {
-  max-width: 42rem;
+  max-width: 46rem;
   margin: 0 auto;
-  padding: 3rem 1.5rem 4rem;
+  padding: 2.25rem 1.5rem 3.5rem;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
 }
 
 main {
@@ -70,7 +69,7 @@ main {
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 0.75rem 1.5rem;
-  margin-bottom: 4rem;
+  margin-bottom: 2.5rem;
 }
 
 .identity {
@@ -156,17 +155,35 @@ h1 em {
 .hero {
   display: flex;
   align-items: flex-start;
-  gap: 2rem;
+  gap: 2.25rem;
   margin-bottom: 2.5rem;
 }
 
-.hero-portrait {
+.hero-aside {
   flex-shrink: 0;
+  width: 148px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.125rem;
+}
+
+.hero-portrait {
   width: 148px;
   height: 148px;
   border-radius: 50%;
   border: 1px solid var(--rule);
   box-shadow: var(--shadow);
+}
+
+.hero-aside .pills {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.hero-aside .pills a {
+  text-align: center;
 }
 
 .hero-text {
@@ -189,9 +206,20 @@ h1 em {
     margin-bottom: 2rem;
   }
 
+  .hero-aside {
+    width: auto;
+    gap: 1rem;
+  }
+
   .hero-portrait {
     width: 104px;
     height: 104px;
+  }
+
+  .hero-aside .pills {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
   }
 }
 
@@ -387,7 +415,7 @@ hr::after {
   align-items: baseline;
   justify-content: space-between;
   gap: 1rem;
-  margin-top: 3.5rem;
+  margin-top: 2.75rem;
 }
 
 .section-head h2 {
@@ -492,6 +520,53 @@ hr::after {
 
 .pub-list .links a {
   margin-right: 0.75rem;
+}
+
+/* Year-gutter timeline (publications & talks) */
+
+.pub-group {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr;
+  gap: 0 1.5rem;
+  align-items: start;
+  margin-bottom: 0.25rem;
+}
+
+.pub-group .year {
+  grid-column: 1;
+  margin: 0;
+  padding-top: 0.55rem;
+  border-left: none;
+  text-align: right;
+}
+
+.pub-group .pub-list {
+  grid-column: 2;
+}
+
+.pub-group .pub-list li {
+  border-left: none;
+  padding: 0.45rem 0 1.15rem;
+}
+
+.pub-group .pub-list li::before {
+  display: none;
+}
+
+@media (max-width: 560px) {
+  .pub-group {
+    grid-template-columns: 1fr;
+  }
+
+  .pub-group .year,
+  .pub-group .pub-list {
+    grid-column: 1;
+  }
+
+  .pub-group .year {
+    text-align: left;
+    padding-top: 1.4rem;
+  }
 }
 
 /* ---------- Article pages ---------- */
