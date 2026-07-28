@@ -422,6 +422,31 @@ hr::after {
   font-size: 1.0625rem;
 }
 
+/* ---------- Post search ---------- */
+
+.search-input {
+  width: 100%;
+  max-width: 22rem;
+  margin: 1.75rem 0 0;
+  padding: 0.5rem 0.85rem;
+  font-family: inherit;
+  font-size: 0.9375rem;
+  color: var(--text);
+  background: var(--bg-raised);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  transition: border-color 0.2s ease;
+}
+
+.search-input::placeholder {
+  color: var(--muted);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
 /* ---------- Writing list ---------- */
 
 .post-list {

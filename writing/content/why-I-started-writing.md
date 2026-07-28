@@ -1,0 +1,19 @@
+# Why I Started Writing
+
+I have always wanted to write freely. It is one of those things I kept meaning to do and never got around to, until now. This is my first post.
+
+Over the years I have written a good deal: academic papers, technical articles, reviews, and documents of nearly every kind. But almost all of it was written for a narrow audience such as collaborators, reviewers, and researchers who already shared my vocabulary. Writing for people who know the field lets you take shortcuts. This is not to say that technical writing is trivial, but you can usually rely on jargon, assume the context, and skip the connective tissue that a general reader would need to follow the argument. I have never really written for anyone outside that circle. This is my attempt to change that.
+
+I am writing for four reasons.
+
+**To think more clearly.** Writing for strangers forces a rigor I could quietly skip when writing for myself or for people who already agreed with me. When no shared shorthand is available, every gap in the reasoning shows. You cannot hide a half-baked idea behind a familiar term. If I cannot explain something plainly, it usually means I do not yet understand it well enough, and writing is how I find that out.
+
+**To write more widely.** My professional writing has kept me inside a fairly narrow lane, primarily cybersecurity research and computer science related topics. I now want to write about things that interest me without asking whether they fit a discipline, a format, or a set of reviewers. I want to follow ideas across disciplines rather than staying confined to the technical ones I am known for.
+
+**To leave something for my kids.** This is the reason that matters most to me. I want to write down some of what I have learned, my experiences and insights, and how I have come to think about things, in the hope that they might draw on it as they grow up. Not as instruction, but as something they can return to and take what they find useful.
+
+**To encourage my kids to write.** More than anything, I want my kids to have this skill for themselves, but forcing it on them does not work. My hope is that if they see me writing, and see what it does for me, they might come to it on their own.
+
+I have been deeply inspired by writers like [Paul Graham](https://paulgraham.com/articles.html), whose essays I read and keep returning to. What drew me in was never just the ideas, but the sense of a mind working through very different subjects on the page, honestly and in plain language. I also admire [Casey Handmer](https://caseyhandmer.wordpress.com/), a prolific writer whose essays are technically dense and informative. I don't aspire to be either of them, or to match their success. I want to find my own voice.
+
+That is what I am hoping to do here. I am not certain yet what these posts will become or where they will lead, but the only way to find out is to start writing them.

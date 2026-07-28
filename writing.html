@@ -35,12 +35,18 @@
             <h1>Writing</h1>
             <p class="lede muted">Essays, notes, and occasional long-form thoughts.</p>
 
-            <ul class="post-list">
-                <li>
-                    <time datetime="2026-07-28">2026-07-28</time>
-                    <a href="writing/example-post.html">An example post</a>
-                </li>
-            </ul>
+            <input type="search" class="search-input" id="post-search" placeholder="Search posts…" aria-label="Search posts" autocomplete="off">
+
+            <!-- POSTS:START -->
+                <ul class="post-list" id="posts">
+                    <li>
+                        <time datetime="2026-07-28">2026-07-28</time>
+                        <a href="writing/why-I-started-writing.html">Why I Started Writing</a>
+                    </li>
+                </ul>
+                <!-- POSTS:END -->
+            <ul class="post-list" id="search-results" hidden></ul>
+            <p class="muted" id="search-empty" hidden></p>
 
             <div class="section-head">
                 <h2>Elsewhere</h2>
@@ -81,5 +87,6 @@
         </footer>
     </div>
     <script src="/theme.js"></script>
+    <script src="/search.js" defer></script>
 </body>
 </html>
