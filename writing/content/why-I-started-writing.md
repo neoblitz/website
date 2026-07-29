@@ -11,9 +11,9 @@ Over the years I have written a good deal: academic papers, technical articles, 
 
 I am writing for four reasons.
 
-**To think more clearly.** Writing for strangers forces a rigor I could quietly skip when writing for myself or for people who already agreed with me. When no shared shorthand is available, every gap in the reasoning shows. You cannot hide a half-baked idea behind a familiar term. If I cannot explain something plainly, it usually means I do not yet understand it well enough, and writing is how I find that out.
+**To think more clearly.** Writing for strangers forces a rigor I could quietly skip when writing for myself or for people who already agreed with me. When no shared vocabulary is available, every gap in the reasoning and half-baked idea shows. If I cannot explain something plainly, it usually means I do not yet understand it well enough, and writing is how I find that out.
 
-**To write more widely.** My professional writing has kept me inside a fairly narrow lane, primarily cybersecurity research and computer science related topics. I now want to write about things that interest me without asking whether they fit a discipline, a format, or a set of reviewers. I want to follow ideas across disciplines rather than staying confined to the technical ones I am known for.
+**To write more widely.** My professional writing has kept me inside a fairly narrow lane, primarily cybersecurity research and computer science related topics. I now want to write about things that interest me without asking whether they fit a discipline or a particular format. I want to follow ideas across disciplines, and explore new ones.
 
 **To leave something for my kids.** This is the reason that matters most to me. I want to write down some of what I have learned, my experiences and insights, and how I have come to think about things, in the hope that they might draw on it as they grow up. Not as instruction, but as something they can return to and take what they find useful.
 
