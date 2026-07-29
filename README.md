@@ -61,6 +61,12 @@ python3 build.py              # after editing any content source
    from the file's modified time. `tags` is a comma-separated list; it drives the
    Tags list in the Writing-page sidebar (the Archive is built automatically from
    dates), and the tags also appear on the article itself.
+
+   `date` is the publish date and never changes on its own. A **"Updated …"**
+   note appears next to it automatically once a post is changed after publishing
+   — it's taken from git (the date the file was last committed, or today while
+   the post has uncommitted edits). Set `updated: YYYY-MM-DD` in front matter to
+   override it. It shows only when it differs from `date`.
 2. Run `python3 build.py`, then commit and push.
 
 ### Drafts

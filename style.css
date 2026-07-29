@@ -789,7 +789,8 @@ article h1 {
   margin-bottom: 0.5rem;
 }
 
-article time {
+article time,
+.post-updated {
   color: var(--muted);
   font-size: 0.9375rem;
   letter-spacing: 0.04em;

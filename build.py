@@ -21,6 +21,7 @@ import re
 import json
 import glob
 import datetime
+import subprocess
 import markdown
 import yaml
 
@@ -72,7 +73,7 @@ ARTICLE_TEMPLATE = """<!DOCTYPE html>
             <article>
                 <header>
                     <h1>%%TITLE%%</h1>
-                    <time datetime="%%DATE_ISO%%">%%DATE_DISPLAY%%</time>%%TAGS%%
+                    <time datetime="%%DATE_ISO%%">%%DATE_DISPLAY%%</time>%%UPDATED%%%%TAGS%%
                 </header>
 
                 <div class="body">
@@ -111,6 +112,25 @@ def slugify(s):
 def format_date(iso):
     d = datetime.date.fromisoformat(iso)
     return "%s %d, %d" % (MONTHS[d.month], d.day, d.year)
+
+
+def git_last_modified(path):
+    """The date a file was last changed, from git. Returns today's date if the
+    file has uncommitted edits (you're editing it now), or None if git can't
+    answer (e.g. not a repo)."""
+    try:
+        tracked = subprocess.run(
+            ["git", "ls-files", "--error-unmatch", path],
+            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode == 0
+        if not tracked:
+            return datetime.date.today().isoformat()
+        if subprocess.run(["git", "diff", "--quiet", "HEAD", "--", path]).returncode != 0:
+            return datetime.date.today().isoformat()
+        out = subprocess.run(["git", "log", "-1", "--format=%cs", "--", path],
+                             capture_output=True, text=True).stdout.strip()
+        return out or None
+    except Exception:
+        return None
 
 
 def replace_region(text, start, end, inner):
@@ -160,6 +180,7 @@ def build_posts():
 
         iso = meta.get("date") or datetime.date.fromtimestamp(
             os.path.getmtime(md_path)).isoformat()
+        updated = meta.get("updated") or git_last_modified(md_path) or iso
 
         tags = [{"name": t.strip(), "slug": slugify(t)}
                 for t in meta.get("tags", "").split(",") if t.strip()]
@@ -178,17 +199,25 @@ def build_posts():
         else:
             tags_html = ""
 
+        if updated and updated != iso:
+            updated_html = (' <span class="post-updated">· Updated %s</span>'
+                            % format_date(updated))
+        else:
+            updated_html = ""
+
         page = (ARTICLE_TEMPLATE
                 .replace("%%TITLE%%", html_escape(title))
                 .replace("%%DESC%%", html_escape(desc))
                 .replace("%%DATE_ISO%%", iso)
                 .replace("%%DATE_DISPLAY%%", format_date(iso))
+                .replace("%%UPDATED%%", updated_html)
                 .replace("%%TAGS%%", tags_html)
                 .replace("%%BODY%%", body_html))
         open(os.path.join(OUT_DIR, slug + ".html"), "w", encoding="utf-8").write(page)
 
         posts.append({"title": title, "url": "writing/%s.html" % slug,
-                      "date": iso, "month": iso[:7], "tags": tags, "text": plain})
+                      "date": iso, "updated": updated, "month": iso[:7],
+                      "tags": tags, "text": plain})
 
     posts.sort(key=lambda p: p["date"], reverse=True)
 
