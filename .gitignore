@@ -6,3 +6,6 @@
 
 # Personal CV source — contains private contact details, kept out of the public repo
 cv.latex
+
+# Work-in-progress drafts — never compiled or published
+writing/drafts/

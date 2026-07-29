@@ -447,6 +447,138 @@ hr::after {
   border-color: var(--accent);
 }
 
+/* ---------- Writing layout + sidebar ---------- */
+
+.writing-layout {
+  display: flex;
+  gap: 2.5rem;
+  align-items: flex-start;
+  margin-top: 1.75rem;
+}
+
+.writing-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.writing-main .search-input {
+  margin-top: 0;
+}
+
+.writing-aside {
+  flex: 0 0 10.5rem;
+}
+
+.filter-note {
+  margin: 0 0 0.25rem;
+  font-size: 0.9375rem;
+}
+
+.filter-note .clear-filter {
+  color: var(--accent);
+}
+
+.side-block {
+  margin-bottom: 1.75rem;
+}
+
+.side-title {
+  font-family: "Newsreader", Charter, Georgia, serif;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-variant-caps: all-small-caps;
+  color: var(--muted);
+  margin: 0 0 0.6rem;
+}
+
+.facet-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.9375rem;
+}
+
+.facet-list li {
+  margin: 0.15rem 0;
+}
+
+.facet-list a {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.facet-list a:hover,
+.facet-list a.is-active {
+  color: var(--accent);
+}
+
+.facet-list a.is-active {
+  font-weight: 600;
+}
+
+.facet-list .count {
+  color: var(--muted);
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.facet-list.archive > li {
+  margin-bottom: 0.5rem;
+}
+
+.facet-list.archive .year {
+  color: var(--muted);
+  font-size: 0.875rem;
+  letter-spacing: 0.04em;
+  font-variant-caps: all-small-caps;
+}
+
+.facet-list.archive ul {
+  list-style: none;
+  margin: 0.1rem 0 0;
+  padding: 0 0 0 0.9rem;
+}
+
+/* Tags shown on an article page */
+.post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.9rem;
+}
+
+.post-tags a {
+  font-size: 0.8125rem;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  text-decoration: none;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.15rem 0.7rem;
+}
+
+.post-tags a:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+@media (max-width: 640px) {
+  .writing-layout {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .writing-aside {
+    flex: none;
+    width: 100%;
+  }
+}
+
 /* ---------- Writing list ---------- */
 
 .post-list {

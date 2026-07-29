@@ -44,20 +44,31 @@ python3 build.py              # after editing any content source
 
 ## Adding a post
 
-1. Create `writing/content/<slug>.md`. Optionally set title/date via front matter:
+1. Create `writing/content/<slug>.md`. Optionally set title, date, and tags via
+   front matter:
 
    ```markdown
    ---
    title: Why I Started Writing
    date: 2026-07-28
+   tags: writing, reflection, personal
    ---
 
    Your first paragraph…
    ```
 
    Without front matter, the title comes from the first `# heading` and the date
-   from the file's modified time.
+   from the file's modified time. `tags` is a comma-separated list; it drives the
+   Tags list in the Writing-page sidebar (the Archive is built automatically from
+   dates), and the tags also appear on the article itself.
 2. Run `python3 build.py`, then commit and push.
+
+### Drafts
+
+Work in progress goes in `writing/drafts/`. That folder is **gitignored** — its
+files are never compiled into pages, never committed, and never published (this
+is a public repo, so drafts stay on your machine only). When a draft is ready,
+move it to `writing/content/` and run the build.
 
 ## Adding or editing a project
 

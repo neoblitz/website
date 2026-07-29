@@ -2,18 +2,17 @@
 """Static build for arunviswanathan.com.
 
 Single sources of truth:
-  - Posts:    writing/content/*.md   (Markdown, one per post)
+  - Posts:    writing/content/*.md   (Markdown, one per post; front matter for
+              title/date/tags)
   - Projects: data/projects.yaml
 
 Running `python3 build.py` regenerates everything derived from them:
-  - writing/<slug>.html            (article pages)
-  - the post list on writing.html  (between the POSTS markers)
+  - writing/<slug>.html            (article pages, with their tags)
+  - the post list + Tags/Archive sidebar on writing.html
   - search-index.json              (post search)
-  - the project sections on projects.html   (PROJECTS markers)
-  - the home page's "Selected projects" (FEATURED markers) and
-    "Recent writing" (RECENT markers)
+  - the project sections on projects.html
+  - the home page's "Selected projects" and "Recent writing"
 
-The pages are still served as plain static files; this build runs locally.
 Needs:  pip install markdown pyyaml
 """
 
@@ -33,6 +32,8 @@ PROJECTS_PAGE = "projects.html"
 HOME_PAGE = "index.html"
 INDEX_FILE = "search-index.json"
 RECENT_ON_HOME = 3
+MONTHS = ["", "January", "February", "March", "April", "May", "June", "July",
+          "August", "September", "October", "November", "December"]
 
 ARTICLE_TEMPLATE = """<!DOCTYPE html>
 <html lang="en">
@@ -71,7 +72,7 @@ ARTICLE_TEMPLATE = """<!DOCTYPE html>
             <article>
                 <header>
                     <h1>%%TITLE%%</h1>
-                    <time datetime="%%DATE_ISO%%">%%DATE_DISPLAY%%</time>
+                    <time datetime="%%DATE_ISO%%">%%DATE_DISPLAY%%</time>%%TAGS%%
                 </header>
 
                 <div class="body">
@@ -103,17 +104,23 @@ def html_escape(s):
              .replace(">", "&gt;").replace('"', "&quot;"))
 
 
+def slugify(s):
+    return re.sub(r"[^a-z0-9]+", "-", s.strip().lower()).strip("-")
+
+
 def format_date(iso):
     d = datetime.date.fromisoformat(iso)
-    return "%s %d, %d" % (d.strftime("%B"), d.day, d.year)
+    return "%s %d, %d" % (MONTHS[d.month], d.day, d.year)
 
 
 def replace_region(text, start, end, inner):
-    """Replace whatever sits between the two marker comments with `inner`,
-    keeping the markers. Assumes the END marker is indented 12 spaces."""
-    pattern = re.escape(start) + r".*?" + re.escape(end)
-    repl = start + "\n" + inner + "\n            " + end
-    new, n = re.subn(pattern, lambda m: repl, text, flags=re.DOTALL)
+    pattern = r"([ \t]*)" + re.escape(start) + r".*?" + re.escape(end)
+
+    def repl(m):
+        ind = m.group(1)
+        return ind + start + "\n" + inner + "\n" + ind + end
+
+    new, n = re.subn(pattern, repl, text, flags=re.DOTALL)
     if n == 0:
         raise SystemExit("Marker %s not found — did the page lose it?" % start)
     return new
@@ -143,56 +150,126 @@ def build_posts():
         raw = open(md_path, encoding="utf-8").read()
         meta, body_md = parse_front_matter(raw)
 
-        title = meta.get("title")
-        if not title:
-            hm = re.search(r"^#\s+(.+)$", body_md, re.MULTILINE)
-            title = hm.group(1).strip() if hm else slug.replace("-", " ").title()
+        # The first "# heading" is always the title; strip it from the body so
+        # it isn't rendered twice. Front-matter title, if present, wins.
+        heading = re.search(r"^#\s+(.+)$", body_md, re.MULTILINE)
+        if heading:
             body_md = re.sub(r"^#\s+.+$", "", body_md, count=1, flags=re.MULTILINE)
+        title = meta.get("title") or (heading.group(1).strip() if heading
+                                       else slug.replace("-", " ").title())
 
         iso = meta.get("date") or datetime.date.fromtimestamp(
             os.path.getmtime(md_path)).isoformat()
 
+        tags = [{"name": t.strip(), "slug": slugify(t)}
+                for t in meta.get("tags", "").split(",") if t.strip()]
+
         body_html = markdown.markdown(
             body_md.strip(), extensions=["extra", "sane_lists", "smarty"])
-
-        plain = re.sub(r"<[^>]+>", " ", body_html)
-        plain = re.sub(r"\s+", " ", plain).strip()
+        plain = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", body_html)).strip()
         desc = (plain[:157] + "…") if len(plain) > 158 else plain
+
+        if tags:
+            links = "\n".join(
+                '                        <a href="../writing.html?tag=%s">%s</a>'
+                % (t["slug"], html_escape(t["name"])) for t in tags)
+            tags_html = ('\n                    <div class="post-tags">\n'
+                         + links + '\n                    </div>')
+        else:
+            tags_html = ""
 
         page = (ARTICLE_TEMPLATE
                 .replace("%%TITLE%%", html_escape(title))
                 .replace("%%DESC%%", html_escape(desc))
                 .replace("%%DATE_ISO%%", iso)
                 .replace("%%DATE_DISPLAY%%", format_date(iso))
+                .replace("%%TAGS%%", tags_html)
                 .replace("%%BODY%%", body_html))
         open(os.path.join(OUT_DIR, slug + ".html"), "w", encoding="utf-8").write(page)
 
         posts.append({"title": title, "url": "writing/%s.html" % slug,
-                      "date": iso, "text": plain})
+                      "date": iso, "month": iso[:7], "tags": tags, "text": plain})
 
     posts.sort(key=lambda p: p["date"], reverse=True)
-    json.dump(posts, open(INDEX_FILE, "w", encoding="utf-8"),
+
+    index = [{"title": p["title"], "url": p["url"], "date": p["date"],
+              "text": p["text"] + " " + " ".join(t["name"] for t in p["tags"]),
+              "tags": [t["slug"] for t in p["tags"]]} for p in posts]
+    json.dump(index, open(INDEX_FILE, "w", encoding="utf-8"),
               ensure_ascii=False, indent=2)
     return posts
 
 
-def post_list_items(posts, indent):
+def post_list_items(posts, indent, with_data=False):
     pad = " " * indent
-    return "\n".join(
-        '%s<li>\n'
-        '%s    <time datetime="%s">%s</time>\n'
-        '%s    <a href="%s">%s</a>\n'
-        '%s</li>' % (pad, pad, p["date"], p["date"], pad, p["url"],
-                     html_escape(p["title"]), pad)
-        for p in posts)
+    out = []
+    for p in posts:
+        attrs = ""
+        if with_data:
+            attrs = (' data-tags="%s" data-month="%s"'
+                     % (" ".join(t["slug"] for t in p["tags"]), p["month"]))
+        out.append(
+            '%s<li%s>\n'
+            '%s    <time datetime="%s">%s</time>\n'
+            '%s    <a href="%s">%s</a>\n'
+            '%s</li>' % (pad, attrs, pad, p["date"], p["date"], pad, p["url"],
+                         html_escape(p["title"]), pad))
+    return "\n".join(out)
+
+
+def render_sidebar(posts):
+    # tags: slug -> {name, count}
+    tags = {}
+    for p in posts:
+        for t in p["tags"]:
+            e = tags.setdefault(t["slug"], {"name": t["name"], "count": 0})
+            e["count"] += 1
+    tag_items = "\n".join(
+        '                    <li><a href="?tag=%s" data-tag="%s" data-label="%s">'
+        '%s <span class="count">%d</span></a></li>'
+        % (slug, slug, html_escape(e["name"]), html_escape(e["name"]), e["count"])
+        for slug, e in sorted(tags.items(), key=lambda kv: (-kv[1]["count"], kv[0])))
+
+    # archive: year -> month -> count
+    years = {}
+    for p in posts:
+        y, m = int(p["date"][:4]), int(p["date"][5:7])
+        years.setdefault(y, {}).setdefault(m, 0)
+        years[y][m] += 1
+    year_blocks = []
+    for y in sorted(years, reverse=True):
+        months = "\n".join(
+            '                        <li><a href="?month=%04d-%02d" '
+            'data-month="%04d-%02d" data-label="%s %d">%s '
+            '<span class="count">%d</span></a></li>'
+            % (y, m, y, m, MONTHS[m], y, MONTHS[m], years[y][m])
+            for m in sorted(years[y], reverse=True))
+        year_blocks.append(
+            '                    <li class="archive-year">\n'
+            '                        <span class="year">%d</span>\n'
+            '                        <ul>\n%s\n                        </ul>\n'
+            '                    </li>' % (y, months))
+    archive_items = "\n".join(year_blocks)
+
+    return (
+        '                <div class="side-block">\n'
+        '                    <h3 class="side-title">Tags</h3>\n'
+        '                    <ul class="facet-list">\n%s\n                    </ul>\n'
+        '                </div>\n'
+        '                <div class="side-block">\n'
+        '                    <h3 class="side-title">Archive</h3>\n'
+        '                    <ul class="facet-list archive">\n%s\n                    </ul>\n'
+        '                </div>' % (tag_items, archive_items))
 
 
 def build_writing_page(posts):
-    inner = ('                <ul class="post-list" id="posts">\n'
-             + post_list_items(posts, 20) + '\n'
-             '                </ul>')
     text = open(WRITING_PAGE, encoding="utf-8").read()
-    text = replace_region(text, "<!-- POSTS:START -->", "<!-- POSTS:END -->", inner)
+    posts_inner = ('                <ul class="post-list" id="posts">\n'
+                   + post_list_items(posts, 20, with_data=True) + '\n'
+                   '                </ul>')
+    text = replace_region(text, "<!-- POSTS:START -->", "<!-- POSTS:END -->", posts_inner)
+    text = replace_region(text, "<!-- SIDEBAR:START -->", "<!-- SIDEBAR:END -->",
+                          render_sidebar(posts))
     open(WRITING_PAGE, "w", encoding="utf-8").write(text)
 
 
@@ -224,21 +301,20 @@ def build_projects_page(data):
             '            <div class="cards duo">\n'
             '%s\n'
             '            </div>' % (html_escape(section["name"]), cards))
-    inner = "\n\n".join(blocks)
     text = open(PROJECTS_PAGE, encoding="utf-8").read()
-    text = replace_region(text, "<!-- PROJECTS:START -->", "<!-- PROJECTS:END -->", inner)
+    text = replace_region(text, "<!-- PROJECTS:START -->", "<!-- PROJECTS:END -->",
+                          "\n\n".join(blocks))
     open(PROJECTS_PAGE, "w", encoding="utf-8").write(text)
 
 
 def build_home(data, posts):
     featured = [p for s in data["sections"] for p in s["projects"] if p.get("featured")]
     cards = "\n".join(card_html(p, "home_meta", "summary") for p in featured)
-    featured_inner = ('            <div class="cards duo">\n'
-                      + cards + '\n'
-                      '            </div>')
+    featured_inner = ('            <div class="cards duo">\n' + cards
+                      + '\n            </div>')
     recent_inner = ('            <ul class="post-list">\n'
-                    + post_list_items(posts[:RECENT_ON_HOME], 16) + '\n'
-                    '            </ul>')
+                    + post_list_items(posts[:RECENT_ON_HOME], 16)
+                    + '\n            </ul>')
     text = open(HOME_PAGE, encoding="utf-8").read()
     text = replace_region(text, "<!-- FEATURED:START -->", "<!-- FEATURED:END -->", featured_inner)
     text = replace_region(text, "<!-- RECENT:START -->", "<!-- RECENT:END -->", recent_inner)

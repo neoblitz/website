@@ -1,3 +1,8 @@
+---
+date: 2026-07-28
+tags: writing, reflection, personal
+---
+
 # Why I Started Writing
 
 I have always wanted to write freely. It is one of those things I kept meaning to do and never got around to, until now. This is my first post.
@@ -14,6 +19,6 @@ I am writing for four reasons.
 
 **To encourage my kids to write.** More than anything, I want my kids to have this skill for themselves, but forcing it on them does not work. My hope is that if they see me writing, and see what it does for me, they might come to it on their own.
 
-I have been deeply inspired by writers like [Paul Graham](https://paulgraham.com/articles.html), whose essays I read and keep returning to. What drew me in was never just the ideas, but the sense of a mind working through very different subjects on the page, honestly and in plain language. I also admire [Casey Handmer](https://caseyhandmer.wordpress.com/), a prolific writer whose essays are technically dense and informative. I don't aspire to be either of them, or to match their success. I want to find my own voice.
+I have been deeply inspired by writers like [Paul Graham](https://paulgraham.com/articles.html), whose essays I read and keep returning to. What drew me in was never just the ideas, but the sense of a mind working through a breadth of topics on paper, honestly and in plain language. I also admire [Casey Handmer](https://caseyhandmer.wordpress.com/), a prolific writer on space and energy related topics, whose essays are technically dense and informative. I don't aspire to be either of them, or to match their success. I want to find my own voice.
 
 That is what I am hoping to do here. I am not certain yet what these posts will become or where they will lead, but the only way to find out is to start writing them.
