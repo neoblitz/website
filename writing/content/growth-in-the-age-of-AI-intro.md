@@ -17,10 +17,13 @@ There are several angles to explore here. In this series I want to start with th
 
 My initial attempt at exploring this question quickly filled about 15 pages of a Word document, which would have created one boring long post. Instead, I decided to break it down into four posts, each exploring a topic connected to my main question. Each stands on its own but builds on the last.
 
-**Part 1: How AI is different.** Why doesn't AI feel like every other tool I have adopted in my 20+ years? I think it's the first tool to automate the reasoning itself, not just execution, and that's what makes it different.
-**Part 2: Have we been here before? **As it turns out this is not a new phenomenon. The evidence that automation erodes expert skill is measurable and comes from brain scans, cockpit studies, and medicine, and the timescale is collapsing from decades to months. 
-**Part 3: What I'm Willing to Lose to AI, and What I'm Not.** Not all atrophy is bad. The real task is telling the skills I can safely hand over from the load-bearing ones whose loss hollows out my judgment, often without my noticing. 
-**Part 4: What I'm Doing About It.** The practical stance I am taking to keep growing, and an honest accounting of how I have incorporated AI into my workflows, including to write this very series, and whether I stayed on the right side of my own argument. 
+**Part 1: How AI is different.** Why doesn't AI feel like every other tool I have adopted in my 20+ years? I think it's the first tool to automate the end-to-end reasoning itself, not just execution, and that's what makes it different. *(coming soon)*
+
+**Part 2: Have we been here before? **As it turns out this is not a new phenomenon. The evidence that automation erodes expert skill is measurable and comes from brain scans, cockpit studies, and medicine, and the timescale is collapsing from decades to months. *(coming soon)*
+
+**Part 3: What I'm Willing to Lose to AI, and What I'm Not.** Not all atrophy is bad. The real task is telling the skills I can safely hand over from the load-bearing ones whose loss hollows out my judgment, often without my noticing. *(coming soon)*
+
+**Part 4: What I'm Doing About It.** The practical stance I am taking to keep growing, and an honest accounting of how I have incorporated AI into my workflows, including to write this very series, and whether I stayed on the right side of my own argument. *(coming soon)*
 
 My goal with this series is to understand, in real time, how AI is reshaping the way I grow. I have a clear view of the problem and some sense of what to do about it, but I don't pretend to have it all figured out. If you are somewhere in the same boat, I would genuinely like to hear where your experience matches mine and where it doesn't.
 
