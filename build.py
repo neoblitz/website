@@ -115,15 +115,15 @@ def format_date(iso):
 
 
 def git_last_modified(path):
-    """The date a file was last changed, from git. Returns today's date if the
-    file has uncommitted edits (you're editing it now), or None if git can't
-    answer (e.g. not a repo)."""
+    """The date a tracked file was last changed, from git — today's date if it
+    has uncommitted edits. Returns None for a brand-new (untracked) file, which
+    is a first publish rather than an update, or if git can't answer."""
     try:
         tracked = subprocess.run(
             ["git", "ls-files", "--error-unmatch", path],
             stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode == 0
         if not tracked:
-            return datetime.date.today().isoformat()
+            return None
         if subprocess.run(["git", "diff", "--quiet", "HEAD", "--", path]).returncode != 0:
             return datetime.date.today().isoformat()
         out = subprocess.run(["git", "log", "-1", "--format=%cs", "--", path],
@@ -199,7 +199,7 @@ def build_posts():
         else:
             tags_html = ""
 
-        if updated and updated != iso:
+        if updated and updated > iso:   # only when changed *after* publishing
             updated_html = (' <span class="post-updated">· Updated %s</span>'
                             % format_date(updated))
         else:

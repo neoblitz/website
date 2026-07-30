@@ -1,6 +1,6 @@
 ---
 date: 2026-07-28
-tags: writing, reflection, personal
+tags: writing, reflections, personal
 ---
 
 # Why I Started Writing
@@ -9,9 +9,11 @@ I have always wanted to write freely. It is one of those things I kept meaning t
 
 Over the years I have written a good deal: academic papers, technical articles, reviews, and documents of nearly every kind. But almost all of it was written for a narrow audience such as collaborators, reviewers, and researchers who already shared my vocabulary. Writing for people who know the field lets you take shortcuts. This is not to say that technical writing is trivial, but you can usually rely on jargon, assume the context, and skip the connective tissue that a general reader would need to follow the argument. I have never really written for anyone outside that circle. This is my attempt to change that.
 
-I am writing for four reasons.
+I am writing for the following reasons.
 
-**To think more clearly.** Writing for strangers forces a rigor I could quietly skip when writing for myself or for people who already agreed with me. When no shared vocabulary is available, every gap in the reasoning and half-baked idea shows. If I cannot explain something plainly, it usually means I do not yet understand it well enough, and writing is how I find that out.
+**To think more clearly.** Writing has always helped me untangle the jumble of thoughts in my head into clear, structured ideas. But writing for strangers forces a rigor I could quietly skip when writing for myself or for people who already agreed with me. When no shared vocabulary is available and opinions differ, every gap in the reasoning and every half-baked idea shows. If I cannot explain something plainly, it usually means I do not yet understand it well enough, and writing is how I find that out.
+
+**To make sense of the AI era.** The arrival of AI has set off an explosion of activity across technology. So much is changing so quickly that it is becoming difficult to keep up with everything, and more importantly, to understand what it means for me and where my opportunities lie. Writing helps me focus my thinking on one question at a time, and explore it throughly. It also leaves me a record I can look back on, to see how my own thinking has shifted as the field moves.
 
 **To write more widely.** My professional writing has kept me inside a fairly narrow lane, primarily cybersecurity research and computer science related topics. I now want to write about things that interest me without asking whether they fit a discipline or a particular format. I want to follow ideas across disciplines, and explore new ones.
 
