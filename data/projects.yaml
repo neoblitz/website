@@ -41,6 +41,7 @@ sections:
       - title: Semantic Analysis Framework
         url: https://github.com/neoblitz/SAF
         featured: false
+        archived: true
         meta: Python · USENIX NSDI 2011
         description: >-
           A framework for model-driven semantic analysis of network data —
