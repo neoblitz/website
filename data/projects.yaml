@@ -9,6 +9,7 @@
 #   meta         short label under the title (e.g. "Python", "JPL · Research")
 #   description  the blurb shown on the Projects page
 #   featured     true to also show it on the home page
+#   archived     true to move it into the separate "Archive" section (and off the home page)
 #   summary      optional shorter blurb for the home card (falls back to description)
 #   home_meta    optional shorter meta for the home card (falls back to meta)
 #
@@ -49,12 +50,14 @@ sections:
         url: https://github.com/neoblitz/kissview
         meta: Python
         featured: false
+        archived: true
         description: A keep-it-simple viewer, originally hosted on Google Code.
 
       - title: srtgplot
         url: https://github.com/neoblitz/srtgplot
         meta: Python
         featured: false
+        archived: true
         description: >-
           A simple real-time plotting tool for streaming data, originally
           hosted on Google Code.

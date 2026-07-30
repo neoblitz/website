@@ -319,17 +319,30 @@ def load_projects():
     return yaml.safe_load(open(os.path.join(DATA_DIR, "projects.yaml"), encoding="utf-8"))
 
 
-def build_projects_page(data):
-    blocks = []
-    for section in data["sections"]:
-        cards = "\n\n".join(card_html(p) for p in section["projects"])
-        blocks.append(
-            '            <div class="section-head">\n'
+def section_block(name, projects, extra_class="", note=""):
+    cards = "\n\n".join(card_html(p) for p in projects)
+    note_html = ('            <p class="muted">%s</p>\n' % note) if note else ""
+    return ('            <div class="section-head">\n'
             '                <h2>%s</h2>\n'
             '            </div>\n'
-            '            <div class="cards duo">\n'
+            '%s'
+            '            <div class="cards duo%s">\n'
             '%s\n'
-            '            </div>' % (html_escape(section["name"]), cards))
+            '            </div>' % (html_escape(name), note_html, extra_class, cards))
+
+
+def build_projects_page(data):
+    blocks = []
+    archived = []
+    for section in data["sections"]:
+        active = [p for p in section["projects"] if not p.get("archived")]
+        archived += [p for p in section["projects"] if p.get("archived")]
+        if active:
+            blocks.append(section_block(section["name"], active))
+    if archived:
+        blocks.append(section_block(
+            "Archive", archived, extra_class=" archive",
+            note="Older projects, kept here for reference."))
     text = open(PROJECTS_PAGE, encoding="utf-8").read()
     text = replace_region(text, "<!-- PROJECTS:START -->", "<!-- PROJECTS:END -->",
                           "\n\n".join(blocks))
@@ -337,7 +350,8 @@ def build_projects_page(data):
 
 
 def build_home(data, posts):
-    featured = [p for s in data["sections"] for p in s["projects"] if p.get("featured")]
+    featured = [p for s in data["sections"] for p in s["projects"]
+                if p.get("featured") and not p.get("archived")]
     cards = "\n".join(card_html(p, "home_meta", "summary") for p in featured)
     featured_inner = ('            <div class="cards duo">\n' + cards
                       + '\n            </div>')

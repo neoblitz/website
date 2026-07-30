@@ -403,6 +403,15 @@ hr::after {
   color: var(--accent);
 }
 
+/* Archived projects read as quieter than active ones. */
+.cards.archive .card h2 {
+  color: var(--muted);
+}
+
+.cards.archive .card:hover h2 {
+  color: var(--accent);
+}
+
 .card .meta {
   color: var(--muted);
   font-size: 0.8125rem;

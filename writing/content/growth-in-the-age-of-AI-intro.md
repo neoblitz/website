@@ -17,7 +17,7 @@ There are several angles to explore here. In this series I want to start with th
 
 My initial attempt at exploring this question quickly filled about 15 pages of a Word document, which would have created one boring long post. Instead, I decided to break it down into four posts, each exploring a topic connected to my main question. Each stands on its own but builds on the last.
 
-**Part 1: How AI is different.** Why doesn't AI feel like every other tool I have adopted in my 20+ years? I think it's the first tool to automate the end-to-end reasoning itself, not just execution, and that's what makes it different. *(coming soon)*
+**[Part 1: How AI is different.](https://arunviswanathan.com/writing/growth-in-the-age-of-AI-part1.html)** Why doesn't AI feel like every other tool I have adopted in my 20+ years? I think it's the first tool to automate the end-to-end reasoning itself, not just execution, and that's what makes it different. 
 
 **Part 2: Have we been here before? **As it turns out this is not a new phenomenon. The evidence that automation erodes expert skill is measurable and comes from brain scans, cockpit studies, and medicine, and the timescale is collapsing from decades to months. *(coming soon)*
 
