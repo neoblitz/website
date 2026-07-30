@@ -72,6 +72,12 @@ body {
   flex-direction: column;
 }
 
+/* Pages with a sidebar (Writing) get more room so the post list and the
+   Tags/Archive sidebar aren't cramped together. */
+.page--wide {
+  max-width: 52rem;
+}
+
 main {
   flex: 1;
 }
@@ -451,7 +457,7 @@ hr::after {
 
 .writing-layout {
   display: flex;
-  gap: 2.5rem;
+  gap: 3.5rem;
   align-items: flex-start;
   margin-top: 1.75rem;
 }
