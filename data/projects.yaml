@@ -105,6 +105,6 @@ sections:
         url: https://digitalcommons.usu.edu/smallsat/2024/all2024/35/
         meta: JPL · Research
         description: >-
-          Led the adversarial security assessment of NASA's open-source F Prime
+          Adversarial security assessment of NASA's open-source F Prime
           flight software framework, with findings and recommendations
           published at SmallSat 2024.
