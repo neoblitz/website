@@ -6,105 +6,118 @@
 # Each project:
 #   title        (required)
 #   url          (required) — where the card links
+#   category     (required) — groups the cards on the Projects page. Any
+#                text works; "Archive" is special-cased to always render
+#                last, with muted card titles, and never appears on the home
+#                page even if featured is true. Other categories are shown in
+#                the order they first appear below.
+#   year         shown on the card (top-right, next to the title)
 #   meta         short label under the title (e.g. "Python", "JPL · Research")
 #   description  the blurb shown on the Projects page
 #   featured     true to also show it on the home page
-#   archived     true to move it into the separate "Archive" section (and off the home page)
 #   summary      optional shorter blurb for the home card (falls back to description)
 #   home_meta    optional shorter meta for the home card (falls back to meta)
 #
 # Home "Selected projects" shows the featured items in the order they appear below.
 
-sections:
-  - name: Open source
-    projects:
-      - title: Ikigai Workbook
-        url: https://neoblitz.github.io/ikigai/
-        meta: Web app · Live
-        featured: true
-        summary: >-
-          A single-page app to map what you love, what you're good at, what
-          the world needs, and what you can be paid for.
-        description: >-
-          An interactive workbook for mapping your ikigai — what you love, what
-          you're good at, what the world needs, and what you can be paid for.
-          Runs entirely in the browser.
+projects:
+  - title: Ikigai Workbook
+    url: https://neoblitz.github.io/ikigai/
+    category: Fun Projects
+    year: 2026
+    meta: Web app · Live
+    featured: true
+    summary: >-
+      A single-page app to map what you love, what you're good at, what
+      the world needs, and what you can be paid for.
+    description: >-
+      An interactive workbook for mapping your ikigai — what you love, what
+      you're good at, what the world needs, and what you can be paid for.
+      Runs entirely in the browser.
 
-      - title: Celestial Watchface
-        url: https://github.com/neoblitz/celestial-watchface
-        meta: Monkey C · Garmin
-        featured: true
-        description: >-
-          A Garmin Venu 3 watchface that lets you observe the night sky from
-          any of the nine classical planets. Search and download it on the Connect IQ app store.
+  - title: Celestial Watchface
+    url: https://github.com/neoblitz/celestial-watchface
+    category: Fun Projects
+    year: 2025   # best guess — please correct if wrong
+    meta: Monkey C · Garmin
+    featured: true
+    description: >-
+      A Garmin Venu 3 watchface that lets you observe the night sky from
+      any of the nine classical planets. Search and download it on the Connect IQ app store.
 
-      - title: Semantic Analysis Framework
-        url: https://github.com/neoblitz/SAF
-        featured: false
-        archived: true
-        meta: Python · USENIX NSDI 2011
-        description: >-
-          A framework for model-driven semantic analysis of network data —
-          finding hidden activity in massive traffic captures.
+  - title: CyberSAM
+    url: https://techcrunch.com/2020/02/09/the-war-against-space-hackers-how-the-jpl-works-to-secure-its-missions-from-nation-state-adversaries/
+    category: Space mission cyber defense
+    year: 2019   # based on the JPL Lab-wide Seminar Series talk — please correct if wrong
+    meta: JPL · Deployed on 10+ missions
+    home_meta: JPL · 10+ missions
+    featured: false
+    summary: >-
+      Real-time cyber situational awareness for mission operators. Featured
+      in TechCrunch.
+    description: >-
+      A data collection, analysis, and visualization suite that gives
+      mission operators real-time cyber situational awareness for detecting
+      and diagnosing attacks and anomalies. Featured in TechCrunch's
+      coverage of JPL's cyber defense work.
 
-      - title: kissview
-        url: https://github.com/neoblitz/kissview
-        meta: Python
-        featured: false
-        archived: true
-        description: A keep-it-simple viewer, originally hosted on Google Code.
+  - title: CAVE
+    url: https://patents.google.com/patent/US11425157B2/en
+    category: Space mission cyber defense
+    year: 2022   # patent grant year — please correct if the project predates this
+    meta: JPL · U.S. Patent 11,425,157
+    home_meta: JPL · U.S. Patent
+    featured: false
+    summary: >-
+      AI-based reasoning for automated cyber risk assessment of space
+      missions.
+    description: >-
+      An AI-based reasoning tool for automated cyber risk assessment that
+      translates high-level threat descriptions into system-specific,
+      actionable defense tactics — enabling dramatically faster
+      identification and remediation of cyber risks.
 
-      - title: srtgplot
-        url: https://github.com/neoblitz/srtgplot
-        meta: Python
-        featured: false
-        archived: true
-        description: >-
-          A simple real-time plotting tool for streaming data, originally
-          hosted on Google Code.
+  - title: Cyber training, CTFs & exercises
+    url: https://www.sci-zone.com/cubesat-cybersecurity-challenge
+    category: Space mission cyber defense
+    year: 2021 - 2024   # best guess — please correct if wrong
+    meta: JPL · AIAA · Community
+    description: >-
+      Designed three capture-the-flag competitions for mission engineers
+      and students, a CubeSat hacking workshop at DEF CON, and an
+      international space-cyber tabletop exercise at AIAA ASCEND.
 
-  - name: Mission cyber defense
-    projects:
-      - title: CyberSAM
-        url: https://techcrunch.com/2020/02/09/the-war-against-space-hackers-how-the-jpl-works-to-secure-its-missions-from-nation-state-adversaries/
-        meta: JPL · Deployed on 10+ missions
-        home_meta: JPL · 10+ missions
-        featured: false
-        summary: >-
-          Real-time cyber situational awareness for mission operators. Featured
-          in TechCrunch.
-        description: >-
-          A data collection, analysis, and visualization suite that gives
-          mission operators real-time cyber situational awareness for detecting
-          and diagnosing attacks and anomalies. Featured in TechCrunch's
-          coverage of JPL's cyber defense work.
+  - title: F Prime adversarial assessment
+    url: https://digitalcommons.usu.edu/smallsat/2024/all2024/35/
+    category: Space mission cyber defense
+    year: 2024
+    meta: JPL · Research
+    description: >-
+      Adversarial security assessment of NASA's open-source F Prime
+      flight software framework, with findings and recommendations
+      published at SmallSat 2024.
 
-      - title: CAVE
-        url: https://patents.google.com/patent/US11425157B2/en
-        meta: JPL · U.S. Patent 11,425,157
-        home_meta: JPL · U.S. Patent
-        featured: false
-        summary: >-
-          AI-based reasoning for automated cyber risk assessment of space
-          missions.
-        description: >-
-          An AI-based reasoning tool for automated cyber risk assessment that
-          translates high-level threat descriptions into system-specific,
-          actionable defense tactics — enabling dramatically faster
-          identification and remediation of cyber risks.
+  - title: Semantic Analysis Framework
+    url: https://github.com/neoblitz/SAF
+    category: Archive
+    year: 2011
+    meta: Python · USENIX NSDI 2011
+    description: >-
+      A framework for model-driven semantic analysis of network data —
+      finding hidden activity in massive traffic captures.
 
-      - title: Cyber training, CTFs & exercises
-        url: https://www.sci-zone.com/cubesat-cybersecurity-challenge
-        meta: JPL · AIAA · Community
-        description: >-
-          Designed three capture-the-flag competitions for mission engineers
-          and students, a CubeSat hacking workshop at DEF CON, and an
-          international space-cyber tabletop exercise at AIAA ASCEND.
+  - title: kissview
+    url: https://github.com/neoblitz/kissview
+    category: Archive
+    year: 2011
+    meta: Python
+    description: A keep-it-simple viewer, originally hosted on Google Code.
 
-      - title: F Prime adversarial assessment
-        url: https://digitalcommons.usu.edu/smallsat/2024/all2024/35/
-        meta: JPL · Research
-        description: >-
-          Adversarial security assessment of NASA's open-source F Prime
-          flight software framework, with findings and recommendations
-          published at SmallSat 2024.
+  - title: srtgplot
+    url: https://github.com/neoblitz/srtgplot
+    category: Archive
+    year: 2010
+    meta: Python
+    description: >-
+      A simple real-time plotting tool for streaming data, originally
+      hosted on Google Code.

@@ -304,19 +304,44 @@ def build_writing_page(posts):
 
 # ---------------------------------------------------------------- projects
 
+def is_archive(category):
+    return (category or "").strip().lower() == "archive"
+
+
 def card_html(p, meta_key="meta", desc_key="description"):
     meta = p.get(meta_key) or p.get("meta") or ""
     desc = p.get(desc_key) or p.get("description") or ""
+    year = p.get("year")
+    year_html = ('<span class="card-year">%s</span>' % html_escape(year)) if year else ""
     return ('                <a class="card" href="%s">\n'
-            '                    <h2>%s</h2>\n'
+            '                    <div class="card-head">\n'
+            '                        <h2>%s</h2>\n'
+            '                        %s\n'
+            '                    </div>\n'
             '                    <div class="meta">%s</div>\n'
             '                    <p>%s</p>\n'
-            '                </a>' % (html_escape(p["url"]), html_escape(p["title"]),
+            '                </a>' % (html_escape(p["url"]), html_escape(p["title"]), year_html,
                                       html_escape(meta), html_escape(" ".join(desc.split()))))
 
 
 def load_projects():
     return yaml.safe_load(open(os.path.join(DATA_DIR, "projects.yaml"), encoding="utf-8"))
+
+
+def group_by_category(projects):
+    """Group projects by their category, preserving first-appearance order,
+    except 'Archive' (any case) always sorts last."""
+    groups = {}
+    order = []
+    for p in projects:
+        cat = p.get("category") or "Uncategorized"
+        if cat not in groups:
+            groups[cat] = []
+            order.append(cat)
+        groups[cat].append(p)
+    first_index = {c: i for i, c in enumerate(order)}
+    order.sort(key=lambda c: (is_archive(c), first_index[c]))
+    return [(cat, groups[cat]) for cat in order]
 
 
 def section_block(name, projects, extra_class="", note=""):
@@ -333,16 +358,12 @@ def section_block(name, projects, extra_class="", note=""):
 
 def build_projects_page(data):
     blocks = []
-    archived = []
-    for section in data["sections"]:
-        active = [p for p in section["projects"] if not p.get("archived")]
-        archived += [p for p in section["projects"] if p.get("archived")]
-        if active:
-            blocks.append(section_block(section["name"], active))
-    if archived:
+    for category, projects in group_by_category(data["projects"]):
+        archive = is_archive(category)
         blocks.append(section_block(
-            "Archive", archived, extra_class=" archive",
-            note="Older projects, kept here for reference."))
+            category, projects,
+            extra_class=" archive" if archive else "",
+            note="Older projects, kept here for reference." if archive else ""))
     text = open(PROJECTS_PAGE, encoding="utf-8").read()
     text = replace_region(text, "<!-- PROJECTS:START -->", "<!-- PROJECTS:END -->",
                           "\n\n".join(blocks))
@@ -350,8 +371,8 @@ def build_projects_page(data):
 
 
 def build_home(data, posts):
-    featured = [p for s in data["sections"] for p in s["projects"]
-                if p.get("featured") and not p.get("archived")]
+    featured = [p for p in data["projects"]
+                if p.get("featured") and not is_archive(p.get("category"))]
     cards = "\n".join(card_html(p, "home_meta", "summary") for p in featured)
     featured_inner = ('            <div class="cards duo">\n' + cards
                       + '\n            </div>')
@@ -372,8 +393,7 @@ def main():
     data = load_projects()
     build_projects_page(data)
     build_home(data, posts)
-    nproj = sum(len(s["projects"]) for s in data["sections"])
-    print("Built %d post(s) and %d project(s)." % (len(posts), nproj))
+    print("Built %d post(s) and %d project(s)." % (len(posts), len(data["projects"])))
 
 
 if __name__ == "__main__":
