@@ -93,6 +93,8 @@ ARTICLE_TEMPLATE = """<!DOCTYPE html>
         </footer>
     </div>
     <script src="/theme.js"></script>
+    <script data-goatcounter="https://arunviswanathan.goatcounter.com/count"
+            async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
 """
