@@ -77,6 +77,36 @@ projects:
       actionable defense tactics — enabling dramatically faster
       identification and remediation of cyber risks.
 
+  - title: Secure-by-Design for Spacecraft Ground Systems
+    url: https://federalnewsnetwork.com/technology-main/2024/11/risk-compliance-exchange-2024-nists-ron-ross-on-engineering-protections-into-cyber-physical-systems/
+    category: Space mission cyber defense
+    year: 2024   # year of the related paper/talk — please correct if the effort spans other years
+    meta: JPL · NIST partnership
+    featured: false
+    summary: >-
+      Partnered with NIST to bring systems security engineering principles
+      into the design of spacecraft ground data systems.
+    description: >-
+      Led an effort in partnership with NIST to integrate systems security
+      engineering principles (NIST SP 800-160) into the engineering
+      lifecycle of the SunRISE spacecraft ground data systems.
+
+  - title: IEEE 3536 — Space System Cybersecurity Standard
+    url: https://standards.ieee.org/ieee/3536/11916/
+    category: Space mission cyber defense
+    year: 2023 - 2026
+    meta: IEEE · Ground Systems Chair
+    featured: false
+    summary: >-
+      Chair the ground-systems subgroup for IEEE 3536, the international
+      standard on space system cybersecurity.
+    description: >-
+      Chaired the ground-systems subgroup for IEEE 3536, the international
+      standard on space system cybersecurity, defining cybersecurity
+      requirements and guidance for the ground systems that support space
+      missions. The "secure-by-component" design paradigm — published at
+      IEEE 3S 2024 — provided the foundational thinking behind the standard.
+
   - title: Cyber training, CTFs & exercises
     url: https://www.sci-zone.com/cubesat-cybersecurity-challenge
     category: Space mission cyber defense

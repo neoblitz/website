@@ -368,6 +368,29 @@ hr::after {
   box-shadow: var(--shadow);
 }
 
+/* Competency chips — quieter, non-interactive labels (not links). */
+.chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chip {
+  display: inline-block;
+  padding: 0.25rem 0.85rem;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: var(--bg-raised);
+  color: var(--muted);
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-variant-caps: all-small-caps;
+}
+
 /* ---------- Cards (projects) ---------- */
 
 .cards {
